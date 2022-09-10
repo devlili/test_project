@@ -5,20 +5,30 @@ class ProductPage(BasePage):
     def go_to_basket(self):
         basket = self.browser.find_element(*ProductPageLocators.ADD_BASKET)
         basket.click()
-        self.solve_quiz_and_get_code()
+        #self.solve_quiz_and_get_code()
 
     def book_name(self):
         book_name = self.browser.find_element(*ProductPageLocators.NAME_BOOK)
-        a = book_name.text
+        book_name = book_name.text
         book_name_in_basket = self.browser.find_element(*ProductPageLocators.ADD_BOOK)
-        b = book_name_in_basket.text
-        print(a,b)
-        assert a == b, 'Название товара не совпадает'
+        book_name_in_basket = book_name_in_basket.text
+        print(book_name, book_name_in_basket)
+        assert book_name == book_name_in_basket, 'Book name is not th same in basket'
 
     def price(self):
         price = self.browser.find_element(*ProductPageLocators.PRICE)
-        a = price.text
+        price = price.text
         price_in_basket = self.browser.find_element(*ProductPageLocators.PRICE_BASKET)
-        b = price_in_basket.text
-        print(a, b)
-        assert a == b, 'Цена товара не совпадает'
+        price_in_basket = price_in_basket.text
+        print(price, price_in_basket)
+        assert price == price_in_basket, 'Price is not the same in basket'
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
+            "Success message is presented, but should not be"
+
+    def success_message_should_disappear(self):
+        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), \
+            "Success message is not disappeared"
+
+
