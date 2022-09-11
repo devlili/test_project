@@ -5,7 +5,8 @@ class ProductPage(BasePage):
     def add_to_basket(self):
         basket = self.browser.find_element(*ProductPageLocators.ADD_BASKET)
         basket.click()
-        #self.solve_quiz_and_get_code()
+        if "promo=offer" in self.browser.current_url:
+            self.solve_quiz_and_get_code()
 
     def book_name(self):
         book_name = self.browser.find_element(*ProductPageLocators.NAME_BOOK)
